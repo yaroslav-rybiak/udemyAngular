@@ -3,6 +3,10 @@
     angular
         .module("ngClassifieds")
         .controller("classifiedsCtrl", function($scope) {
-            $scope.name = "Yaroslav";
+            $scope.name =  {
+                first: "Yaroslav",
+            };
+            $scope.a = 1;
+            $scope.b = 2;
     });
 })();
