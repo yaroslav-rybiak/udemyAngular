@@ -7,12 +7,14 @@
     <title>ngClassifieds</title>
     <link href="node_modules/angular-material/angular-material.css" rel="stylesheet">
     <link href="node_modules/mdi/css/materialdesignicons.css" media="all" rel="stylesheet" type="text/css">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body ng-app="ngClassifieds" ng-controller="classifiedsCtrl">
 
 <md-toolbar>
     <div class="md-toolbar-tools">
+        <span>ngClassifieds</span>
         <md-button class="md-raised">
             <md-icon class="mdi mdi-plus-circle"></md-icon>
             Add Classified
@@ -23,14 +25,30 @@
 <md-content class="md-padding" layout="row" layout-wrap>
     <md-card flex="30" ng-repeat="classified in classifieds">
         <img ng-src="{{ classified.image }}">
-        <div>
+        <div ng-show="showadmin">
+            <md-button class="md-raised md-primary">Edit</md-button>
+            <md-button class="md-raised md-warn">Delete</md-button>
+        </div>
+        <div ng-show="showcontacts">
+            <p class="md-text">
+                <md-icon class="mdi mdi-calendar"></md-icon> {{ classified.posted }}<br>
+                <md-icon class="mdi mdi-account"></md-icon> {{ classified.contact.name }}<br>
+                <md-icon class="mdi mdi-phone"></md-icon><a href="tel:{{ classified.contact.phone }}">{{ classified.contact.phone }}</a><br>
+                <md-icon class="mdi mdi-email"></md-icon><a href="mailto:{{ classified.contact.email }}">{{ classified.contact.email }}</a>
+            </p>
+        </div>
+        <div ng-show="!showcontacts">
             <h2 class="md-title">{{ classified.title }}</h2>
             <h3 class="md-title">{{ classified.price | currency }}</h3>
             <p class="md-text">{{ classified.description }}</p>
-            <p class="md-text">posted: {{ classified.posted | date }}</p>
+        </div>
+        <div>
+            <md-button ng-show="!showcontacts" class="md-raised" ng-click="showcontacts=true; showadmin=false">Show contacts</md-button>
+            <md-button ng-show="showcontacts" class="md-raised" ng-click="showcontacts=false; showadmin=false">Show description</md-button>
+            <md-button ng-show="!showadmin" class="md-raised" ng-click="showadmin=true;">Show Admin</md-button>
+            <md-button ng-show="showadmin" class="md-raised" ng-click="showadmin=false;">Hide Admin</md-button>
         </div>
     </md-card>
-
 </md-content>
 
 <script src="node_modules/angular/angular.js"></script>
