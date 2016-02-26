@@ -15,12 +15,47 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
         <span>ngClassifieds</span>
-        <md-button class="md-raised">
+        <md-button class="md-raised" ng-click="openSidebar()">
             <md-icon class="mdi mdi-plus-circle"></md-icon>
             Add Classified
         </md-button>
     </div>
 </md-toolbar>
+
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+    <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Add a classified</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+        <form>
+            <md-input-container>
+                <label for="title">Title</label>
+                <input type="text" id="title" md-autofocus>
+            </md-input-container>
+            <md-input-container>
+                <label for="price">Price</label>
+                <input type="text" id="price">
+            </md-input-container>
+            <md-input-container>
+                <label for="description">Description</label>
+                <textarea type="text" id="description"></textarea>
+            </md-input-container>
+            <md-input-container>
+                <label for="image">Image Link</label>
+                <input type="text" id="image">
+            </md-input-container>
+            <md-button class="md-primary">
+                Save
+            </md-button>
+            <md-button class="md-primary">
+                Save Edit
+            </md-button>
+            <md-button class="md-warn" ng-click="closeSidebar()">
+                Cancel
+            </md-button>
+        </form>
+    </md-content>
+</md-sidenav>
 
 <md-content class="md-padding" layout="row" layout-wrap>
     <md-card flex="30" ng-repeat="classified in classifieds">
@@ -29,7 +64,7 @@
             <md-button class="md-raised md-primary">Edit</md-button>
             <md-button class="md-raised md-warn">Delete</md-button>
         </div>
-        <div ng-show="showcontacts">
+        <div class="layout-padding" ng-show="showcontacts">
             <p class="md-text">
                 <md-icon class="mdi mdi-calendar"></md-icon> {{ classified.posted }}<br>
                 <md-icon class="mdi mdi-account"></md-icon> {{ classified.contact.name }}<br>
@@ -37,12 +72,12 @@
                 <md-icon class="mdi mdi-email"></md-icon><a href="mailto:{{ classified.contact.email }}">{{ classified.contact.email }}</a>
             </p>
         </div>
-        <div ng-show="!showcontacts">
-            <h2 class="md-title">{{ classified.title }}</h2>
-            <h3 class="md-title">{{ classified.price | currency }}</h3>
-            <p class="md-text">{{ classified.description }}</p>
+        <div class="layout-padding" ng-show="!showcontacts">
+            <h2 class="md-title layout-padding">{{ classified.title }}</h2>
+            <h3 class="md-title layout-padding">{{ classified.price | currency }}</h3>
+            <p class="md-text layout-padding">{{ classified.description }}</p>
         </div>
-        <div>
+        <div class="layout-padding">
             <md-button ng-show="!showcontacts" class="md-raised" ng-click="showcontacts=true; showadmin=false">Show contacts</md-button>
             <md-button ng-show="showcontacts" class="md-raised" ng-click="showcontacts=false; showadmin=false">Show description</md-button>
             <md-button ng-show="!showadmin" class="md-raised" ng-click="showadmin=true;">Show Admin</md-button>
